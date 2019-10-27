@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList,AsyncStorage  } from 'react-native';
 import Header from './app/components/Header';
 import SubTitle from './app/components/SubTitle';
 import Input from './app/components/InputBox';
@@ -14,7 +14,24 @@ export default class App extends React.Component {
           todos:[],                              
         }  
       }
-
+  
+  
+  
+  //렌더링을 mount라고 한다.
+  componentWillMount(){     this.getData()   } 
+  
+  storeData =() => {      AsyncStorage.setItem('@todo:state', JSON.stringify(this.state));   } 
+  
+  getData =() => {
+        AsyncStorage.getItem('@todo:state').then(
+          (state)=>{
+                 if (state !== null) {
+                      this.setState(JSON.parse(state));
+                  } 
+          }
+        )
+  }
+ 
   _makeTodoItem = ({ item, index }) => {
          return (       
           <TodoItem 
@@ -24,13 +41,13 @@ export default class App extends React.Component {
               {           
                 const newTodo = [...this.state.todos];          
                 newTodo[index].isComplete = !newTodo[index].isComplete; //불린값을 반대로          
-                this.setState({todos:newTodo});
+                this.setState({todos:newTodo}, this.storeData);
               }} 
               deleteItem={() => 
                 {           
                   const newTodo = [...this.state.todos];
                   newTodo.splice(index,1);           
-                  this.setState({todos:newTodo});
+                  this.setState({todos:newTodo}, this.storeData);
                 }}      
             />     
           )
@@ -48,7 +65,7 @@ export default class App extends React.Component {
        this.setState({     
          inputValue: "", 
          todos: prevTodo.concat(newTodo) 
-        }); 
+        }, this.storeData); 
     } 
   }
 

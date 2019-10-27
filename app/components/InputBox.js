@@ -6,7 +6,7 @@ const Input = ({value,changeText,addTodoItem}) => (
      <TextInput         
      value={value}         
      style={styles.input}         
-     placeholder={"오늘 할 일을 적어주세요."}        
+     placeholder={"할 일을 입력하세요!"}        
       maxLength={30}         
       onChangeText={changeText} 
       onEndEditing={addTodoItem}             
