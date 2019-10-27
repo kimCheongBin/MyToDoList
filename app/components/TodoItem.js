@@ -1,17 +1,17 @@
 import React from "react"
 import {View,Text,StyleSheet,Dimensions,TouchableOpacity} from "react-native"
-import {AntDesign} from "@expo/vector-icons" //expo가 제공해주는 component를 import합시다
+import {AntDesign, FontAwesome} from "@expo/vector-icons" //expo가 제공해주는 component를 import합시다
 
-const TodoItem= ({text}) => (
+const TodoItem= ({text, isComplete, changeComplete, deleteItem}) => (
     <View style={styles.todoContainer}>
             <View style={styles.lineContainer}>
                 <View style={styles.makerow}>
-                    <TouchableOpacity>
-                        <AntDesign name="checksquareo" style={styles.checkbtn} size={20} />
+                    <TouchableOpacity onPress = {changeComplete}>
+                        <FontAwesome name={isComplete?"circle-o":"check-circle"} style={styles.checkbtn} size={20} />
                     </TouchableOpacity>
                     <Text style={styles.todos}>{text}</Text>
                 </View>    
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={deleteItem}>
                         <AntDesign name="closecircle" size={20}/>
                     </TouchableOpacity>
             </View>

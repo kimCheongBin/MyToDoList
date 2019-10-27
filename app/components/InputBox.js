@@ -2,13 +2,16 @@
 import React from "react";
 import {TextInput,StyleSheet} from 'react-native';
 
-const Input = () => (
-    <TextInput
-        style={styles.input}
-        placeholder={"오늘의 할 일"}
-        maxLength={30}
-    returnKeyType="done"/>
-);
+const Input = ({value,changeText,addTodoItem}) => (    
+     <TextInput         
+     value={value}         
+     style={styles.input}         
+     placeholder={"오늘 할 일을 적어주세요."}        
+      maxLength={30}         
+      onChangeText={changeText} 
+      onEndEditing={addTodoItem}             
+     returnKeyType="done"/> 
+    );
 
 const styles = StyleSheet.create({
     input: {
@@ -16,6 +19,6 @@ const styles = StyleSheet.create({
         paddingTop:15,
         paddingBottom:15,
     }
-})
+});
 
 export default Input;
